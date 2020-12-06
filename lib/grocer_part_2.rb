@@ -17,15 +17,13 @@ def apply_coupons(cart, coupons)
         item_count -= coupon_item[:num]
       end
     end
-    # if item_count > 0 
-      new_cart << {
-        item: grocery_item[:item],
-        price: grocery_item[:price],
-        clearance: grocery_item[:clearance],
-        count: item_count
-      }
-    # end
-  end 
+    new_cart << {
+      item: grocery_item[:item],
+      price: grocery_item[:price],
+      clearance: grocery_item[:clearance],
+      count: item_count
+    }
+   end 
   return new_cart
 end
 
