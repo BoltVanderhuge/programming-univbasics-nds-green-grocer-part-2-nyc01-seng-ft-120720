@@ -4,25 +4,25 @@ require "pry"
 def apply_coupons(cart, coupons)
   new_cart = []
   cart.each do |grocery_item|
-   item_count = grocery_item[:count]
-   coupon_item = find_item_by_name_in_collection(grocery_item[:item], coupons)
-  if coupon_item != nil
-    while item_count >= coupon_item[:num]
+    item_count = grocery_item[:count]
+    coupon_item = find_item_by_name_in_collection(grocery_item[:item], coupons)
+    if coupon_item != nil
+      while item_count >= coupon_item[:num]
+        new_cart << {
+          item: "#{coupon_item[:item]} W/COUPON",
+          price: coupon_item[:cost] / coupon_item[:num],
+          clearance: grocery_item[:clearance],
+          count: coupon_item[:num]
+        }
+        item_count -= coupon_item[:num]
+      end
       new_cart << {
-        item: "#{coupon_item[:item]} W/COUPON",
-        price: coupon_item[:cost] / coupon_item[:num],
+        item: grocery_item[:item],
+        price: grocery_item[:price],
         clearance: grocery_item[:clearance],
-        count: coupon_item[:num]
+        count: item_count
       }
-      item_count -= coupon_item[:num]
     end
-    new_cart << {
-      item: grocery_item[:item],
-      price: grocery_item[:price],
-      clearance: grocery_item[:clearance],
-      count: item_count
-    }
-  end
   end 
   return new_cart
 end
